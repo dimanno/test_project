@@ -1,0 +1,43 @@
+.formContainer {
+    background: #fff;
+    width: 25%;
+    height: 440px;
+    margin: 20px 30px;
+    padding: 20px 30px 20px 30px;
+    border-radius: 2px;
+    color: #656565;
+}
+
+.formField {
+    text-align: left;
+    font-size: 12px;
+}
+
+.inputField {
+    width: 100%;
+    padding: 5px;
+    border-radius: 2px;
+    border: 1px solid #ebeced;
+    box-sizing: border-box;
+    margin-bottom: 7px;
+    background: #ebeced;
+}
+
+.wrap-button {
+    text-align: center;
+}
+
+.btn {
+    height: 30px;
+    margin-top: 20px;
+    background: #043d3f;
+    color: white;
+    box-sizing: border-box;
+    cursor: pointer;
+    transition: 0.5s;
+    text-align: center;
+    border-radius: 4px;
+    padding: 6px 16px;
+    border: none;
+}
+

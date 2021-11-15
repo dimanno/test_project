@@ -10,7 +10,7 @@ export function Footer() {
 
     return (
         <BrowserRouter>
-            <div>
+            <div className={'footer'}>
                 <Link to={'/users'}>Home</Link>
             </div>
         </BrowserRouter>
