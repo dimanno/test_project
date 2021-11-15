@@ -9,7 +9,7 @@ export function UsersList() {
 
     useEffect(()=>{
         getUsers().then(value => setUsers([...value]))
-    },[])
+    },[]);
     return (
          <div className={'userList'}>
              <div className={'title'}>
@@ -35,4 +35,3 @@ export function UsersList() {
          </div>
     );
 }
-
