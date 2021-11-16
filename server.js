@@ -3,10 +3,11 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 
 const {userRouter}  = require('./routes')
-const {response, json} = require("express");
+const {PORT, MONGO_CONNECT} = require('./config/configs')
+// const {response, json} = require("express");
 
 const app = express();
-mongoose.connect('mongodb://localhost:27017/users-test')
+mongoose.connect(MONGO_CONNECT)
 
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
@@ -20,8 +21,8 @@ app.use('*', (err, req, res, next) => {
             message: err.message})
 })
 
-app.listen(5000, () => {
-    console.log('app listen 5000')
+app.listen(PORT, () => {
+    console.log(`app listen ${PORT}`)
 })
 
 

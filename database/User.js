@@ -39,4 +39,8 @@ const userSchema = new Schema({
 
 }, {timestamps: true, toObject: {virtuals: true}, toJSON: {virtuals: true}});
 
+userSchema.stutics = {
+    
+}
+
 module.exports = model('user', userSchema);
