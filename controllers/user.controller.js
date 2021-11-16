@@ -35,8 +35,11 @@ module.exports = {
     updateUser: async (req, res, next) => {
         try {
             const {user_id} = req.params
-            const{username, firstname, lastname, email, type} = req.body
-            const userUpdated = await User.updateMany({id: user_id}, {set: {username, firstname, lastname, email, type}})
+
+            const user = req.body;
+            const {username} = user
+            const userUpdated = await User.findByIdAndUpdate( user_id,
+                user,{new:true} )
             const checkUsername = await User.findOne({username})
             if (checkUsername) {
                 throw new ErrorHandler(messageResponse.DATA_EXIST, statusCode.FORBIDDEN)
