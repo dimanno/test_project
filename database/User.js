@@ -1,6 +1,7 @@
 const{Schema, model} = require('mongoose');
 
 const {typeUsers} = require('../constants/');
+const passwordService = require("../services/password.service");
 
 const userSchema = new Schema({
     username: {
@@ -40,7 +41,11 @@ const userSchema = new Schema({
 }, {timestamps: true, toObject: {virtuals: true}, toJSON: {virtuals: true}});
 
 userSchema.stutics = {
-    
+    async createUserWithHashPassword(userObject) {
+        const hashPassword = await passwordService.hash(userObject.password);
+
+        return this.create({...userObject, password: hashPassword});
+    }
 }
 
 module.exports = model('user', userSchema);

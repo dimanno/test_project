@@ -1,35 +1,40 @@
 const {User} = require('../database')
 const ErrorHandler = require("../errors/errorHandler");
 const {messageResponse, statusCode} = require("../constants");
+const {userNormalizator} = require("../util/user,util");
+const {passwordService} = require("../services");
 
 module.exports = {
     createUser: async (req, res, next) => {
         try {
-            const newUser = await User.create(req.body)
+            const {password} = req.body;
+            const hashedPassword = await passwordService.hash(password);
 
-            res.json(newUser)
+            const newUser = await User.create({...req.body, password: hashedPassword});
+            const userNormalise = userNormalizator(newUser.toJSON());
+
+            res.status(statusCode.CREATED).json(userNormalise);
         } catch (e) {
             next(e)
         }
     },
     getUsers: async (req, res, next) => {
         try {
-            const users = await User.find()
-            console.log(users)
-            res.json(users)
+            const users = await User.find({}).lean();
+
+            const newUsers = users.map(user => userNormalizator(user));
+
+            res.json(newUsers);
         } catch (e) {
-            next(e)
+            next(e);
         }
     },
     getUser: async (req, res, next) => {
         try {
-            const {user_id} = req.params
-
-            const user = await User.findById(user_id)
-
-            res.json(user)
+            const user = userNormalizator(req.body);
+            await res.json(user);
         } catch (e) {
-            next(e)
+            next(e);
         }
     },
     updateUser: async (req, res, next) => {
